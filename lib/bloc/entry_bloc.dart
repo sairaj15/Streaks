@@ -12,6 +12,23 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
       final updatedEntries = [...currentEntries, newEntry];
       emit(StateShowEntries(entries: updatedEntries));
     });
-    on<EventMarkDone>((event, emit) {});
+
+    on<EventMarkDone>((event, emit) {
+      final List<EntryModel> currentEntries =
+          (state as StateShowEntries).entries;
+      final DateTime learningDone = DateTime.now();
+      final updatedEntry = currentEntries.map((entry) {
+        if (entry.nameOfTheTask == event.nameOfTheTask) {
+          return EntryModel(
+            nameOfTheTask: entry.nameOfTheTask,
+            learningDone: [...entry.learningDone, learningDone],
+          );
+        } else {
+          return entry;
+        }
+      }).toList();
+
+      emit(StateShowEntries(entries: updatedEntry));
+    });
   }
 }
