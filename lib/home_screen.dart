@@ -18,7 +18,7 @@ class _HomeScreenState extends State<StatefulWidget> {
       child: BlocBuilder<EntryBloc, EntryState>(
         builder: (context, state) {
           if (state is StateShowEntries) {
-            final entries = state.entries;
+            // final entries = state.entries;
             return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -38,6 +38,10 @@ class _HomeScreenState extends State<StatefulWidget> {
                     },
                   ),
                 ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                child: Text('Add Entry'),
+                onPressed: () {},
               ),
             );
           }
