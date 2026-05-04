@@ -1,5 +1,7 @@
 import 'package:dailylearningtracker/bloc/entry_bloc.dart';
+import 'package:dailylearningtracker/bloc/entry_event.dart';
 import 'package:dailylearningtracker/bloc/entry_state.dart';
+import 'package:dailylearningtracker/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dailylearningtracker/add_entry_screen.dart';
@@ -17,7 +19,6 @@ class _HomeScreenState extends State<StatefulWidget> {
     return BlocBuilder<EntryBloc, EntryState>(
       builder: (context, state) {
         if (state is StateShowEntries) {
-          // final entries = state.entries;
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -28,20 +29,44 @@ class _HomeScreenState extends State<StatefulWidget> {
             ),
             body: Column(
               children: [
-                ListView.builder(
-                  itemCount: state.entries.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(state.entries[index].nameOfTheTask),
-                    );
-                  },
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.entries.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(state.entries[index].nameOfTheTask),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TaskScreen(
+                                nameOfTheTask:
+                                    state.entries[index].nameOfTheTask,
+                              ),
+                            ),
+                          );
+                        },
+                        trailing: ElevatedButton(
+                          onPressed: () => context.read<EntryBloc>().add(
+                            EventMarkDone(
+                              nameOfTheTask: state.entries[index].nameOfTheTask,
+                            ),
+                          ),
+                          child: Icon(Icons.check),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
             floatingActionButton: FloatingActionButton(
               child: Text('Add Entry'),
               onPressed: () {
-                AddEntryScreen();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddEntryScreen()),
+                );
               },
             ),
           );
