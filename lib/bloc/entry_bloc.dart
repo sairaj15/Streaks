@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:dailylearningtracker/bloc/entry_event.dart';
 import 'package:dailylearningtracker/bloc/entry_state.dart';
 import 'package:dailylearningtracker/models/entry_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EntryBloc extends Bloc<EntryEvent, EntryState> {
   EntryBloc() : super(StateShowEntries(entries: [])) {
@@ -14,6 +17,7 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
     EntryModel newEntry = EntryModel(nameOfTheTask: event.nameOfTheTask);
     final updatedEntries = [...currentEntries, newEntry];
     emit(StateShowEntries(entries: updatedEntries));
+    _setEntries(updatedEntries);
   }
 
   void _onEventMarkDone(EventMarkDone event, emit) {
@@ -29,7 +33,14 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
         return entry;
       }
     }).toList();
-
     emit(StateShowEntries(entries: updatedEntry));
+  }
+
+  Future<void> _setEntries(List<EntryModel> entries) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = jsonEncode(
+      entries.map((entry) => entry.toJson()).toList(),
+    );
+    await prefs.setString('entries', jsonString);
   }
 }

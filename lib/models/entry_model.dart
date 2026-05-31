@@ -10,6 +10,15 @@ class EntryModel {
     };
   }
 
+  factory EntryModel.fromJson(Map<String, dynamic> json) {
+    return EntryModel(
+      nameOfTheTask: json['nameOfTheTask'],
+      learningDone: (json['learningDone'] as List)
+          .map((date) => DateTime.parse(date))
+          .toList(),
+    );
+  }
+
   final String nameOfTheTask;
   final List<DateTime> learningDone;
 }
