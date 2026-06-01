@@ -10,6 +10,15 @@ class EntryModel {
     };
   }
 
+  factory EntryModel.fromJson(Map<String, dynamic> json) {
+    return EntryModel(
+      nameOfTheTask: json['nameOfTheTask'],
+      learningDone: (json['learningDone'] as List)
+          .map((date) => DateTime.parse(date))
+          .toList(),
+    );
+  }
+
   bool isTodayMarked() {
     final today = DateTime.now();
     return learningDone.any(
@@ -20,15 +29,23 @@ class EntryModel {
     );
   }
 
+  bool _isDayMarked(DateTime checkDate) {
+    return learningDone.any(
+      (date) =>
+          date.year == checkDate.year &&
+          date.month == checkDate.month &&
+          date.day == checkDate.day,
+    );
+  }
+
   int getCurrentStreak() {
     int streakCounter = 0;
-    DateTime today = DateTime.now();
-    learningDone.map((date) {
-      while (!isTodayMarked()) {
-        streakCounter++;
-        today.subtract(Duration(days: 1));
-      }
-    });
+    DateTime day = DateTime.now();
+    while (_isDayMarked(day)) {
+      streakCounter++;
+      day = day.subtract(Duration(days: 1));
+    }
+
     return streakCounter;
   }
 

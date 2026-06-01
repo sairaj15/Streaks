@@ -5,6 +5,7 @@ import 'package:dailylearningtracker/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dailylearningtracker/add_entry_screen.dart';
+import 'models/entry_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,6 +36,9 @@ class _HomeScreenState extends State<StatefulWidget> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(state.entries[index].nameOfTheTask),
+                        subtitle: Text(
+                          state.entries[index].getCurrentStreak().toString(),
+                        ),
                         onTap: () {
                           Navigator.push(
                             context,
