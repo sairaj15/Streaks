@@ -11,7 +11,6 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
     on<EventAddHabit>(_onEventAddHabit);
     on<EventMarkDone>(_onEventMarkDone);
     on<EventLoadEntries>(_onEventLoadEntries);
-    // add(EventLoadEntries());
   }
 
   void _onEventAddHabit(EventAddHabit event, emit) {

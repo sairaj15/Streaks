@@ -47,11 +47,14 @@ class _HomeScreenState extends State<StatefulWidget> {
                           );
                         },
                         trailing: ElevatedButton(
-                          onPressed: () => context.read<EntryBloc>().add(
-                            EventMarkDone(
-                              nameOfTheTask: state.entries[index].nameOfTheTask,
-                            ),
-                          ),
+                          onPressed: state.entries[index].isTodayMarked()
+                              ? null
+                              : () => context.read<EntryBloc>().add(
+                                  EventMarkDone(
+                                    nameOfTheTask:
+                                        state.entries[index].nameOfTheTask,
+                                  ),
+                                ),
                           child: Icon(Icons.check),
                         ),
                       );
