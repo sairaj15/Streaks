@@ -11,3 +11,5 @@ class EventMarkDone extends EntryEvent {
 
   final String nameOfTheTask;
 }
+
+class EventLoadEntries extends EntryEvent {}

@@ -10,6 +10,8 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
   EntryBloc() : super(StateShowEntries(entries: [])) {
     on<EventAddHabit>(_onEventAddHabit);
     on<EventMarkDone>(_onEventMarkDone);
+    on<EventLoadEntries>(_onEventLoadEntries);
+    // add(EventLoadEntries());
   }
 
   void _onEventAddHabit(EventAddHabit event, emit) {
@@ -34,6 +36,7 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
       }
     }).toList();
     emit(StateShowEntries(entries: updatedEntry));
+    _setEntries(updatedEntry);
   }
 
   Future<void> _setEntries(List<EntryModel> entries) async {
@@ -42,5 +45,20 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
       entries.map((entry) => entry.toJson()).toList(),
     );
     await prefs.setString('entries', jsonString);
+  }
+
+  Future<void> _onEventLoadEntries(
+    EventLoadEntries event,
+    Emitter<EntryState> emit,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString('entries');
+    if (jsonString == null) return;
+    final json = jsonDecode(jsonString);
+    final entries = (json as List)
+        .map((item) => EntryModel.fromJson(item))
+        .toList();
+
+    emit(StateShowEntries(entries: entries));
   }
 }
