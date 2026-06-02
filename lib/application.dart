@@ -13,7 +13,14 @@ class Application extends StatelessWidget {
       create: (context) => EntryBloc(),
       child: BlocBuilder<EntryBloc, EntryState>(
         builder: (context, state) {
-          return MaterialApp(title: 'Learning Tracker', home: HomeScreen());
+          return MaterialApp(
+            title: 'Learning Tracker',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            home: HomeScreen(),
+          );
         },
       ),
     );
