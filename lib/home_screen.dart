@@ -5,7 +5,6 @@ import 'package:dailylearningtracker/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dailylearningtracker/add_entry_screen.dart';
-import 'models/entry_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,38 +30,41 @@ class _HomeScreenState extends State<StatefulWidget> {
             body: Column(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: state.entries.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(state.entries[index].nameOfTheTask),
-                        subtitle: Text(
-                          state.entries[index].getCurrentStreak().toString(),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TaskScreen(
-                                nameOfTheTask:
-                                    state.entries[index].nameOfTheTask,
-                              ),
-                            ),
-                          );
-                        },
-                        trailing: ElevatedButton(
-                          onPressed: state.entries[index].isTodayMarked()
-                              ? null
-                              : () => context.read<EntryBloc>().add(
-                                  EventMarkDone(
-                                    nameOfTheTask:
-                                        state.entries[index].nameOfTheTask,
-                                  ),
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.all(20),
+                    child: ListView.builder(
+                      itemCount: state.entries.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(state.entries[index].nameOfTheTask),
+                          subtitle: Text(
+                            '${state.entries[index].getCurrentStreak()}days',
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TaskScreen(
+                                  nameOfTheTask:
+                                      state.entries[index].nameOfTheTask,
                                 ),
-                          child: Icon(Icons.check),
-                        ),
-                      );
-                    },
+                              ),
+                            );
+                          },
+                          trailing: IconButton(
+                            icon: Icon(Icons.check_sharp),
+                            onPressed: state.entries[index].isTodayMarked()
+                                ? null
+                                : () => context.read<EntryBloc>().add(
+                                    EventMarkDone(
+                                      nameOfTheTask:
+                                          state.entries[index].nameOfTheTask,
+                                    ),
+                                  ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
