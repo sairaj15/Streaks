@@ -83,17 +83,20 @@ class _HomeScreenState extends State<StatefulWidget> {
                                                 state.entries[index]
                                                         .isTodayMarked()
                                                     ? null
-                                                    : () => context
-                                                          .read<EntryBloc>()
-                                                          .add(
-                                                            EventMarkDone(
-                                                              nameOfTheTask: state
-                                                                  .entries[index]
-                                                                  .nameOfTheTask,
-                                                            ),
-                                                          );
+                                                    : context.read<EntryBloc>().add(
+                                                        EventMarkDone(
+                                                          nameOfTheTask: state
+                                                              .entries[index]
+                                                              .nameOfTheTask,
+                                                        ),
+                                                      );
                                               },
-                                              child: Text('Mark Done'),
+                                              child: Text(
+                                                'Mark Done',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         ),
