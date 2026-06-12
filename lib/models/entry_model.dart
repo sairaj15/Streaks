@@ -60,11 +60,11 @@ class EntryModel {
   int getLongestStreak() {
     int streakCounter = 0;
     int longestStreakCounter = 0;
-    learningDone.sort((a, b) => a.compareTo(b));
-    for (int i = 0; i < learningDone.length; i++) {
+    final sortedArray = [...learningDone]..sort((a, b) => a.compareTo(b));
+    for (int i = 0; i < sortedArray.length; i++) {
       streakCounter++;
-      if (i + 1 < learningDone.length) {
-        int difference = learningDone[i + 1].difference(learningDone[i]).inDays;
+      if (i + 1 < sortedArray.length) {
+        int difference = sortedArray[i + 1].difference(sortedArray[i]).inDays;
         if (difference != 1) {
           longestStreakCounter = max(longestStreakCounter, streakCounter);
           streakCounter = 0;

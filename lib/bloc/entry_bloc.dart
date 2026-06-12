@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:dailylearningtracker/bloc/entry_event.dart';
-import 'package:dailylearningtracker/bloc/entry_state.dart';
-import 'package:dailylearningtracker/models/entry_model.dart';
+import 'package:daily_learning_tracker/bloc/entry_event.dart';
+import 'package:daily_learning_tracker/bloc/entry_state.dart';
+import 'package:daily_learning_tracker/models/entry_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EntryBloc extends Bloc<EntryEvent, EntryState> {

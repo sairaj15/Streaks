@@ -1,10 +1,10 @@
-import 'package:dailylearningtracker/bloc/entry_bloc.dart';
-import 'package:dailylearningtracker/bloc/entry_event.dart';
-import 'package:dailylearningtracker/bloc/entry_state.dart';
+import 'package:daily_learning_tracker/bloc/entry_bloc.dart';
+import 'package:daily_learning_tracker/bloc/entry_event.dart';
+import 'package:daily_learning_tracker/bloc/entry_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dailylearningtracker/add_entry_screen.dart';
-import 'package:dailylearningtracker/statistics_screen.dart';
+import 'package:daily_learning_tracker/add_entry_screen.dart';
+import 'package:daily_learning_tracker/statistics_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

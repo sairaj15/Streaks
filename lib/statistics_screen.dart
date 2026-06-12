@@ -1,4 +1,4 @@
-import 'package:dailylearningtracker/models/entry_model.dart';
+import 'package:daily_learning_tracker/models/entry_model.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsScreen extends StatelessWidget {
@@ -6,12 +6,27 @@ class StatisticsScreen extends StatelessWidget {
 
   const StatisticsScreen({required this.entries, super.key});
 
-  int totalHabits() {
-    return entries.length;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: entries.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(entries[index].nameOfTheTask),
+                  subtitle: Text(
+                    'Current Streak:${entries[index].getCurrentStreak()}\nLongest Streak: ${entries[index].getLongestStreak()}\nDays Tracked: ${entries[index].learningDone.length}\nCompletion Rate: ${entries[index].getCompletionRate().toStringAsFixed(1)}%',
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:dailylearningtracker/models/entry_model.dart';
+import 'package:daily_learning_tracker/models/entry_model.dart';
 
 abstract class EntryState {}
 
