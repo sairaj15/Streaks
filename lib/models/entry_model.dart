@@ -1,5 +1,11 @@
+import 'dart:math';
+
 class EntryModel {
-  EntryModel({required this.nameOfTheTask, this.learningDone = const []});
+  EntryModel({
+    required this.nameOfTheTask,
+    this.learningDone = const [],
+    required this.createdAt,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -7,6 +13,7 @@ class EntryModel {
       'learningDone': learningDone
           .map((date) => date.toIso8601String())
           .toList(),
+      'createdAt': createdAt,
     };
   }
 
@@ -16,6 +23,7 @@ class EntryModel {
       learningDone: (json['learningDone'] as List)
           .map((date) => DateTime.parse(date))
           .toList(),
+      createdAt: json['createdAt'],
     );
   }
 
@@ -49,6 +57,24 @@ class EntryModel {
     return streakCounter;
   }
 
+  int getLongestStreak() {
+    int streakCounter = 0;
+    int longestStreakCounter = 0;
+    learningDone.sort((a, b) => a.compareTo(b));
+    for (int i = 0; i < learningDone.length; i++) {
+      streakCounter++;
+      if (i + 1 < learningDone.length) {
+        int difference = learningDone[i + 1].difference(learningDone[i]).inDays;
+        if (difference != 1) {
+          longestStreakCounter = max(longestStreakCounter, streakCounter);
+          streakCounter = 0;
+        }
+      }
+    }
+    return max(longestStreakCounter, streakCounter);
+  }
+
   final String nameOfTheTask;
   final List<DateTime> learningDone;
+  final DateTime createdAt;
 }
