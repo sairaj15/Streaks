@@ -74,6 +74,12 @@ class EntryModel {
     return max(longestStreakCounter, streakCounter);
   }
 
+  double completionRate() {
+    int totalDaysSinceHabitCreated =
+        DateTime.now().difference(createdAt).inDays + 1;
+    return (learningDone.length / totalDaysSinceHabitCreated) * 100;
+  }
+
   final String nameOfTheTask;
   final List<DateTime> learningDone;
   final DateTime createdAt;
