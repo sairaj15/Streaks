@@ -15,7 +15,10 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
 
   void _onEventAddHabit(EventAddHabit event, emit) {
     final List<EntryModel> currentEntries = (state as StateShowEntries).entries;
-    EntryModel newEntry = EntryModel(nameOfTheTask: event.nameOfTheTask);
+    EntryModel newEntry = EntryModel(
+      nameOfTheTask: event.nameOfTheTask,
+      createdAt: DateTime.now(),
+    );
     final updatedEntries = [...currentEntries, newEntry];
     emit(StateShowEntries(entries: updatedEntries));
     _setEntries(updatedEntries);
@@ -29,6 +32,7 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
         return EntryModel(
           nameOfTheTask: entry.nameOfTheTask,
           learningDone: [...entry.learningDone, learningDone],
+          createdAt: entry.createdAt,
         );
       } else {
         return entry;
