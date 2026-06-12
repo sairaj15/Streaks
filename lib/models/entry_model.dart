@@ -74,7 +74,11 @@ class EntryModel {
     return max(longestStreakCounter, streakCounter);
   }
 
+<<<<<<< HEAD
   double completionRate() {
+=======
+  double getCompletionRate() {
+>>>>>>> e8d0198 (refactor: rename completionRate to getCompletionRate)
     int totalDaysSinceHabitCreated =
         DateTime.now().difference(createdAt).inDays + 1;
     return (learningDone.length / totalDaysSinceHabitCreated) * 100;
