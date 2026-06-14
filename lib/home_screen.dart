@@ -1,6 +1,7 @@
 import 'package:daily_learning_tracker/bloc/entry_bloc.dart';
 import 'package:daily_learning_tracker/bloc/entry_event.dart';
 import 'package:daily_learning_tracker/bloc/entry_state.dart';
+import 'package:daily_learning_tracker/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:daily_learning_tracker/add_entry_screen.dart';
@@ -51,104 +52,95 @@ class _HomeScreenState extends State<StatefulWidget> {
                           child: ListView.builder(
                             itemCount: state.entries.length,
                             itemBuilder: (context, index) {
-                              return Card(
-                                child: Padding(
-                                  padding: EdgeInsetsGeometry.fromLTRB(
-                                    20,
-                                    20,
-                                    20,
-                                    20,
+                              return InkWell(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TaskScreen(
+                                      nameOfTheTask:
+                                          state.entries[index].nameOfTheTask,
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        state.entries[index].nameOfTheTask,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
+                                ),
+                                child: Card(
+                                  child: Padding(
+                                    padding: EdgeInsetsGeometry.fromLTRB(
+                                      20,
+                                      20,
+                                      20,
+                                      20,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          state.entries[index].nameOfTheTask,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        child: Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.local_fire_department,
-                                                  color:
-                                                      Colors.deepOrangeAccent,
-                                                ),
-                                                Text(
-                                                  '${state.entries[index].getCurrentStreak()} days',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w800,
+                                        SizedBox(
+                                          child: Row(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.local_fire_department,
+                                                    color:
+                                                        Colors.deepOrangeAccent,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            InkWell(
-                                              focusColor: Colors.blue,
-                                              splashColor: Colors.blue,
-                                              onTap: () {
-                                                state.entries[index]
+                                                  Text(
+                                                    '${state.entries[index].getCurrentStreak()} days',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              InkWell(
+                                                focusColor: Colors.blue,
+                                                splashColor: Colors.blue,
+                                                onTap:
+                                                    state.entries[index]
                                                         .isTodayMarked()
                                                     ? null
-                                                    : context.read<EntryBloc>().add(
-                                                        EventMarkDone(
-                                                          nameOfTheTask: state
-                                                              .entries[index]
-                                                              .nameOfTheTask,
-                                                        ),
-                                                      );
-                                              },
-                                              child: Text(
-                                                'Mark Done',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w800,
+                                                    : () {
+                                                        context.read<EntryBloc>().add(
+                                                          EventMarkDone(
+                                                            nameOfTheTask: state
+                                                                .entries[index]
+                                                                .nameOfTheTask,
+                                                          ),
+                                                        );
+                                                      },
+                                                child: Text(
+                                                  state.entries[index]
+                                                          .isTodayMarked()
+                                                      ? '✓'
+                                                      : 'Mark Done',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w800,
+                                                    color:
+                                                        state.entries[index]
+                                                            .isTodayMarked()
+                                                        ? Colors.grey
+                                                        : Colors.blue,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
-                              /* ListTile(
-                                title: Text(state.entries[index].nameOfTheTask),
-                                subtitle: Text(
-                                  '${state.entries[index].getCurrentStreak()}days',
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TaskScreen(
-                                        nameOfTheTask:
-                                            state.entries[index].nameOfTheTask,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                trailing: IconButton(
-                                  icon: Icon(Icons.check_sharp),
-                                  onPressed:
-                                      state.entries[index].isTodayMarked()
-                                      ? null
-                                      : () => context.read<EntryBloc>().add(
-                                          EventMarkDone(
-                                            nameOfTheTask: state
-                                                .entries[index]
-                                                .nameOfTheTask,
-                                          ),
-                                        ),
-                                ),
-                              ); */
                             },
                           ),
                         ),
@@ -156,7 +148,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                     ],
                   ),
             floatingActionButton: FloatingActionButton(
-              child: Text('Add Entry'),
+              child: Icon(Icons.add),
               onPressed: () {
                 Navigator.push(
                   context,

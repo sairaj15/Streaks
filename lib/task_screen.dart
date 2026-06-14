@@ -16,12 +16,22 @@ class TaskScreen extends StatelessWidget {
             (entry) => entry.nameOfTheTask == nameOfTheTask,
           );
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(title: Text(nameOfTheTask)),
             body: ListView.builder(
               itemCount: entry.learningDone.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(entry.learningDone[index].toString()),
+                final date = entry.learningDone[index];
+                final formattedDate = '${date.day}/${date.month}/${date.year}';
+                return Card(
+                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  child: ListTile(
+                    leading: Icon(Icons.calendar_today, color: Colors.blue),
+                    title: Text(
+                      formattedDate,
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    subtitle: Text('Completed'),
+                  ),
                 );
               },
             ),
