@@ -92,7 +92,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                                                         Colors.deepOrangeAccent,
                                                   ),
                                                   Text(
-                                                    '${state.entries[index].getCurrentStreak()} days',
+                                                    '${state.entries[index].getCurrentStreak()} ${state.entries[index].getCurrentStreak() == 1 ? 'day' : 'days'}',
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
