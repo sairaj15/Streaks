@@ -2,6 +2,8 @@
 
 A local-first habit tracking app built with Flutter to help you build and maintain daily learning habits.
 
+> Built independently as a portfolio project to demonstrate Flutter, BLoC architecture, and local persistence.
+
 ## Features
 
 - Add and track daily learning habits
