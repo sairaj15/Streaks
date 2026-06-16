@@ -1,14 +1,16 @@
-# Daily Learning Tracker
+# Streaks - Daily Habit Tracker
 
-A local-first habit tracking app built with Flutter to track your daily learning journey.
+A local-first habit tracking app built with Flutter to help you build and maintain daily learning habits.
 
 ## Features
 
-- Add and track learning habits
+- Add and track daily learning habits
 - Mark habits as done each day
-- Streak tracking with current and longest streak
-- Detailed statistics per habit
+- Streak tracking — current and longest streak per habit
+- Detailed statistics — completion rate and days tracked
+- Delete habits with long press
 - Local persistence — data survives app restarts
+- Form validation on habit creation
 
 ## Tech Stack
 
@@ -18,12 +20,6 @@ A local-first habit tracking app built with Flutter to track your daily learning
 
 ## Screenshots
 
-![Home Screen](screenshots/HomeScreenDay0.jpeg)
-![Home Screen](screenshots/HomeScreenDay1.jpeg)
-![Add Habit](screenshots/AddHabitScreen.jpeg)
-![Task Screen](screenshots/TaskScreen.jpeg)
-![Statistics](screenshots/StatisticsScreen.jpeg)
-
 ## Architecture
 
-The app follows the BLoC pattern for state management with a clean separation between UI, business logic, and data layers.
+Follows the BLoC pattern with clean separation between UI, business logic, and data layers. All data is stored locally using SharedPreferences with JSON serialization.
