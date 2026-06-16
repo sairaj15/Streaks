@@ -13,7 +13,7 @@ class EntryModel {
       'learningDone': learningDone
           .map((date) => date.toIso8601String())
           .toList(),
-      'createdAt': createdAt,
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 
@@ -23,7 +23,7 @@ class EntryModel {
       learningDone: (json['learningDone'] as List)
           .map((date) => DateTime.parse(date))
           .toList(),
-      createdAt: json['createdAt'],
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 

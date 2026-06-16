@@ -11,6 +11,7 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
     on<EventAddHabit>(_onEventAddHabit);
     on<EventMarkDone>(_onEventMarkDone);
     on<EventLoadEntries>(_onEventLoadEntries);
+    add(EventLoadEntries());
   }
 
   void _onEventAddHabit(EventAddHabit event, emit) {
@@ -54,8 +55,10 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
     EventLoadEntries event,
     Emitter<EntryState> emit,
   ) async {
+    print('OnEventLoadEntries loaded');
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString('entries');
+    print('Loaded JsonString: $jsonString');
     if (jsonString == null) return;
     final json = jsonDecode(jsonString);
     final entries = (json as List)
