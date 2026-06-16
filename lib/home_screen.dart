@@ -40,7 +40,32 @@ class _HomeScreenState extends State<StatefulWidget> {
               ],
             ),
             body: state.entries.isEmpty
-                ? Center(child: Text('No data entries available'))
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.track_changes,
+                          size: 80,
+                          color: Colors.grey.shade300,
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'No habits yet',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Tap + to add your first habit',
+                          style: TextStyle(color: Colors.grey.shade400),
+                        ),
+                      ],
+                    ),
+                  )
                 : Column(
                     children: [
                       Expanded(

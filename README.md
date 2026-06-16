@@ -1,4 +1,4 @@
-# Streaks - Daily Habit Tracker
+# Streaks; Daily Habit Tracker
 
 A local-first habit tracking app built with Flutter to help you build and maintain daily learning habits.
 
@@ -6,10 +6,10 @@ A local-first habit tracking app built with Flutter to help you build and mainta
 
 - Add and track daily learning habits
 - Mark habits as done each day
-- Streak tracking — current and longest streak per habit
-- Detailed statistics — completion rate and days tracked
+- Streak tracking: current and longest streak per habit
+- Detailed statistics:  completion rate and days tracked
 - Delete habits with long press
-- Local persistence — data survives app restarts
+- Local persistence:  data survives app restarts
 - Form validation on habit creation
 
 ## Tech Stack
@@ -19,6 +19,12 @@ A local-first habit tracking app built with Flutter to help you build and mainta
 - SharedPreferences (local persistence)
 
 ## Screenshots
+![Home Screen]<img src="screenshots/HomeScreen.jpg" width="300">
+![Home Screen]<img src="screenshots/HomeScreenDay0.jpg" width="300">
+![Home Screen]<img src="screenshots/HomeScreenDay1.jpg" width="300">
+![Add Habit]<img src="screenshots/AddHabitScreen.jpg" width="300">
+![Statistics]<img src="screenshots/StatisticsScreen.jpg" width="300">
+![Task Screen]<img src="screenshots/TaskScreen.jpg" width="300">
 
 ## Architecture
 
