@@ -13,3 +13,9 @@ class EventMarkDone extends EntryEvent {
 }
 
 class EventLoadEntries extends EntryEvent {}
+
+class EventDeleteEntries extends EntryEvent {
+  EventDeleteEntries({required this.nameOfTheTask});
+
+  final String nameOfTheTask;
+}

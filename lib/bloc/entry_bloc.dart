@@ -11,6 +11,7 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
     on<EventAddHabit>(_onEventAddHabit);
     on<EventMarkDone>(_onEventMarkDone);
     on<EventLoadEntries>(_onEventLoadEntries);
+    on<EventDeleteEntries>(_onEventDeleteEntries);
     add(EventLoadEntries());
   }
 
@@ -66,5 +67,17 @@ class EntryBloc extends Bloc<EntryEvent, EntryState> {
         .toList();
 
     emit(StateShowEntries(entries: entries));
+  }
+
+  Future<void> _onEventDeleteEntries(
+    EventDeleteEntries event,
+    Emitter<EntryState> emit,
+  ) async {
+    final List<EntryModel> currentEntries = (state as StateShowEntries).entries;
+    final updatedEntries = currentEntries
+        .where((entry) => entry.nameOfTheTask != event.nameOfTheTask)
+        .toList();
+    emit(StateShowEntries(entries: updatedEntries));
+    _setEntries(updatedEntries);
   }
 }

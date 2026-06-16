@@ -22,10 +22,7 @@ class _HomeScreenState extends State<StatefulWidget> {
         if (state is StateShowEntries) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(
-                'Daily Learning Tracker',
-                style: TextStyle(color: Colors.white),
-              ),
+              title: Text('Streaks', style: TextStyle(color: Colors.white)),
               backgroundColor: Colors.blue,
               actions: [
                 IconButton(
@@ -62,6 +59,41 @@ class _HomeScreenState extends State<StatefulWidget> {
                                     ),
                                   ),
                                 ),
+                                onLongPress: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text('Delete Habit'),
+                                      content: Text(
+                                        'Do you want to delete the habit?',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            context.read<EntryBloc>().add(
+                                              EventDeleteEntries(
+                                                nameOfTheTask: state
+                                                    .entries[index]
+                                                    .nameOfTheTask,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
                                 child: Card(
                                   child: Padding(
                                     padding: EdgeInsetsGeometry.fromLTRB(
